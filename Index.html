@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kisembo AI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{background:#0a0a0f;color:#fff;min-height:100vh;display:flex;flex-direction:column}
+header{padding:20px;display:flex;justify-content:space-between;border-bottom:1px solid #222}
+.logo{font-weight:900;font-size:24px;background:linear-gradient(90deg,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.chat{flex:1;max-width:800px;margin:0 auto;width:100%;padding:20px;display:flex;flex-direction:column}
+.hero{text-align:center;padding:30px 0}
+.hero h1{font-size:42px;font-weight:900}
+.hero span{background:linear-gradient(90deg,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.box{background:#11111a;border:1px solid #222;border-radius:20px;padding:20px;min-height:350px;display:flex;flex-direction:column}
+.msgs{flex:1;display:flex;flex-direction:column;gap:12px;overflow:auto}
+.msg{padding:12px 16px;border-radius:16px;max-width:80%}
+.bot{background:#1e1e2e;align-self:flex-start}
+.user{background:#7c3aed;align-self:flex-end}
+.input{display:flex;gap:10px;margin-top:15px}
+.input input{flex:1;padding:14px;border-radius:12px;border:1px solid #333;background:#1a1a27;color:#fff}
+.input button{padding:14px 20px;border-radius:12px;border:none;background:#7c3aed;color:#fff;font-weight:700}
+</style>
+</head>
+<body>
+<header><div class="logo">KISEMBO AI</div><div>🟢 Live</div></header>
+<div class="chat">
+<div class="hero"><h1>AI yawe <span>y'Umunyarwanda</span></h1><p>Murakaza neza kuri Kisembo AI</p></div>
+<div class="box">
+<div class="msgs" id="msgs">
+<div class="msg bot">Muraho! Ndi Kisembo AI yakozwe nawe! Nabafasha iki? 🚀</div>
+</div>
+<div class="input">
+<input id="inp" placeholder="Baza Kisembo...">
+<button onclick="send()">Ohereza</button>
+</div>
+</div>
+</div>
+<script>
+function send(){
+var i=document.getElementById('inp'),m=document.getElementById('msgs');
+if(!i.value)return;
+var d=document.createElement('div');d.className='msg user';d.textContent=i.value;m.appendChild(d);
+var t=i.value;i.value='';
+setTimeout(function(){
+var r=document.createElement('div');r.className='msg bot';
+r.textContent='Wow Boss! "'+t+'" ni igitekerezo cyiza! 🔥 Kisembo AI irabikora!';
+m.appendChild(r);m.scrollTop=m.scrollHeight;
+},600);
+}
+</script>
+</body>
+</html>
