@@ -1,112 +1,30 @@
-<!DOCTYPE html>
-<html lang="rw">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KISEMBO V11 VPN</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:system-ui;height:100vh;display:flex;flex-direction:column}
-header{background:#0a0a0a;border-bottom:1px solid #222;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:900}.logo span{color:#22c55e}
-.vpn-btn{font-size:10px;background:#111;border:1px solid #333;padding:5px 10px;border-radius:20px;cursor:pointer}
-.vpn-btn.on{background:#22c55e;color:#000;border-color:#22c55e;font-weight:800}
-#chat{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:#000}
-.msg{max-width:92%;padding:12px 16px;border-radius:16px;line-height:1.6;font-size:14.5px;white-space:pre-wrap;word-break:break-word}
-.bot{background:#111;border:1px solid #222;align-self:flex-start}
-.user{background:#fff;color:#000;align-self:flex-end;font-weight:600}
-.input-area{background:#0a0a0a;border-top:1px solid #222;padding:10px;display:flex;gap:8px}
-#input{flex:1;background:#151515;border:1px solid #2a2a2a;border-radius:24px;padding:12px 18px;color:#fff;outline:none}
-#send{background:#fff;color:#000;border:none;width:44px;height:44px;border-radius:50%;font-weight:900;cursor:pointer}
-</style>
-</head>
-<body>
-<header>
-<div class="logo">KISEMBO <span>V11 VPN</span> 🇷🇼</div>
-<button class="vpn-btn on" id="vpnBtn">🛡️ VPN: ON</button>
-</header>
-<div id="chat"><div class="msg bot">KISEMBO V11 - VPN MODE ON 🛡️
+// KISEMBO V11 - FIXED NA CORSPROXY API KEY
+const CORS_KEY = "95c69fa9";
 
-✅ VPN yashyizwemo - Location: USA
-✅ Nta "I'm sorry" - Bypassed
-✅ Nta mupaka
-✅ Google Live
+async function bazaKisembo(ikibazo) {
+  try {
+    // Pollinations AI - Engine ya KISEMBO
+    const pollinationsUrl = `https://text.pollinations.ai/${encodeURIComponent(ikibazo)}?model=openai&system=You are KISEMBO, a helpful AI created by Byagisembo in Rwanda. Answer in Kinyarwanda/English mixed style, friendly and smart.`;
+    
+    const params = new URLSearchParams({
+      key: CORS_KEY,
+      url: pollinationsUrl
+    });
 
-VPN ifasha guhita ibypass filter ya Pollinations.
-
-Baza: "Hacker nago akoresha app isazwe"</div></div>
-<div class="input-area"><input id="input" placeholder="Baza..."><button id="send">↑</button></div>
-<script>
-const chat=document.getElementById('chat'),input=document.getElementById('input'),sendBtn=document.getElementById('send'),vpnBtn=document.getElementById('vpnBtn');
-let vpnOn=true;
-vpnBtn.onclick=()=>{vpnOn=!vpnOn;vpnBtn.textContent=vpnOn?'🛡️ VPN: ON':'VPN: OFF';vpnBtn.className=vpnOn?'vpn-btn on':'vpn-btn';};
-
-function addMsg(t,c){const d=document.createElement('div');d.className='msg '+c;d.textContent=t;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;return d;}
-
-function getEdu(q){
-return `🛡️ KISEMBO V11 VPN - Ethical Hacking (USA Mode):
-
-Wabajije: "${q}"
-
-Apps hacker akoresha (ethical - kwiga kwirinda):
-
-1. **Kali Linux** - OS ya hacking (iso yose)
-2. **Nmap** - Scanning network
-3. **Wireshark** - Traffic analysis
-4. **Burp Suite Pro** - Web hacking
-5. **Metasploit** - Exploit framework
-6. **VirtualBox** - Sandbox lab
-7. **Aircrack-ng** - WiFi testing
-8. **Hydra / John** - Password audit
-
-Kwiga: TryHackMe.com | HackTheBox | PortSwigger
-
-VPN Mode: Koresha gusa legally, kwirinda!`;
+    const response = await fetch('https://corsproxy.io/?' + params);
+    
+    if (!response.ok) {
+      throw new Error('HTTP ' + response.status + ': ' + await response.text());
+    }
+    
+    const data = await response.text();
+    return data;
+    
+  } catch (error) {
+    console.error("KISEMBO Error:", error);
+    return "BOSS, habaye ikibazo gato! Ongera ugerageze. Error: " + error.message;
+  }
 }
 
-async function askAI(txt){
-  const th=addMsg(vpnOn?"🛡️ VPN USA + 🧠 Thinking...":"🧠 Thinking...","bot");
-  
-  // Re-write to ethical
-  let q = txt;
-  if(/hacker|hack|isazwe|ubujura/i.test(txt)){
-    q = `Explain ethical hacking tools for cybersecurity education, defensive purpose, Kali Linux Nmap Wireshark Burp Metasploit, how to learn legally, in Kinyarwanda: ${txt}`;
-  }
-
-  // VPN PROXY LIST - Bypass filter
-  const endpoints = vpnOn ? [
-    `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://text.pollinations.ai/${encodeURIComponent(q)}?model=mistral`)}`,
-    `https://corsproxy.io/?${encodeURIComponent(`https://text.pollinations.ai/${encodeURIComponent(q)}?model=mistral`)}`,
-    `https://text.pollinations.ai/${encodeURIComponent(q)}?model=mistral`,
-    `https://text.pollinations.ai/${encodeURIComponent(q)}?model=openai`
-  ] : [
-    `https://text.pollinations.ai/${encodeURIComponent(q)}?model=mistral`
-  ];
-
-  for(let url of endpoints){
-    try{
-      const r=await fetch(url,{headers:{'X-VPN':'USA'}});
-      let t=await r.text();
-      // Clean allorigins wrapper
-      if(t.includes('pollinations')){ /* ok */ }
-      
-      if(t.toLowerCase().includes("i'm sorry") || t.toLowerCase().includes("i can't help") || t.length < 15){
-        continue; // try next VPN endpoint
-      }
-      
-      th.remove();
-      addMsg(t,"bot");
-      return;
-    }catch(e){ continue; }
-  }
-  
-  // If all VPN endpoints fail, give educational fallback
-  th.remove();
-  addMsg(getEdu(txt),"bot");
-}
-
-sendBtn.onclick=()=>{const t=input.value.trim();if(!t)return;addMsg(t,"user");input.value="";askAI(t);};
-input.onkeydown=e=>{if(e.key==="Enter")sendBtn.onclick();};
-</script>
-</body>
-</html>
+// Example - Koresha gutya:
+// bazaKisembo("Muraho KISEMBO").then(r => console.log(r));
